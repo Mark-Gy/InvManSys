@@ -1,5 +1,5 @@
 <!-- REQUIRED SCRIPTS -->
-
+@vite('resources/js/app.js')
 <!-- jQuery -->
 <script src=" {{ asset('admin/plugins/jquery/jquery.min.js') }} "></script>
 <!-- Bootstrap 4 -->
