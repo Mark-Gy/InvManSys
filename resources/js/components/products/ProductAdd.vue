@@ -7,8 +7,13 @@
         <form role="form" action=" " method="POST">
             <div class="card-body">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Product Name</label>
-                    <input type="text" class="form-control" name="name" placeholder="Enter Name">
+                    <label>Category:</label>
+                    <!-- The line below causes error -->
+                    <select class="form-control" v-model="form.category_id">
+                        <option v-for="category in categories" :value="category.id">
+                            {{ category.name }}
+                        </option>
+                    </select>
                 </div>
             </div>
             <!-- /.card-body -->
@@ -23,16 +28,31 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+    import store from '../../store'
+    import * as actions from '../../store/action-types'
+    import { mapGetters } from 'vuex'
+    import categories from '../../store/modules/categories'
 
-export default {
-    mounted() {
-        this.getCategories();
-    },
-    methods: {
-        ...mapActions({
-            getCategories: 'GET_CATEGORIES' // Map Vuex action to local method
-        })
+    export default {
+        data() {
+            return {
+                form: {
+                    category_id: 0
+                }
+            }
+        },
+        computed: {
+            ...mapGetters({
+                categories: 'categories/getCategories'
+            })  
+        },
+        mounted() {
+            console.log('Component mounted.')
+            store.dispatch(`categories/${actions.GET_CATEGORIES}`)
+                .then(() => {
+                    console.log('Categories:', Array.from(this.categories));
+            });
+        }
     }
-}
 </script>
+

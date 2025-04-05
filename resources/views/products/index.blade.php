@@ -44,7 +44,7 @@
                         @if($products)
                             @foreach($products as $key => $product)
                             <tr>
-                                <td> {{ +$key }} </td>
+                                <td> {{ +$key + 1 }} </td>
                                 <td> {{ $product->name ?? '' }} </td>
                                 <td>
                                   <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i>Edit</a>

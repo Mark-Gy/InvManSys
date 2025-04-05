@@ -44,7 +44,7 @@
                         @if($sizes)
                             @foreach($sizes as $key => $size)
                             <tr>
-                                <td> {{ +$key }} </td>
+                                <td> {{ +$key + 1 }} </td>
                                 <td> {{ $size->name ?? '' }} </td>
                                 <td>
                                   <a href="{{ route('sizes.edit', $size->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i>Edit</a>

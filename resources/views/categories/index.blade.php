@@ -44,7 +44,7 @@
                         @if($categories)
                             @foreach($categories as $key => $category)
                             <tr>
-                                <td> {{ +$key }} </td>
+                                <td> {{ +$key + 1 }} </td>
                                 <td> {{ $category->name ?? '' }} </td>
                                 <td>
                                   <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i>Edit</a>

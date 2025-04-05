@@ -99,4 +99,5 @@ class CategoriesController extends Controller
             'data' => $categories
         ], Response::HTTP_OK );
     }
+    
 }
