@@ -1,12 +1,13 @@
-import { createStore } from 'vuex'
+// import { createStore } from 'vuex'
 
-// Modules (add them here when needed)
-// import product from './modules/product'
+// import categories from './modules/categories'
 
-const store = createStore({
-    modules: {
-        // product
-    }
-})
+// // Modules (add them here when needed)
 
-export default store
+// const store = createStore({
+//     modules: {
+        
+//     }
+// })
+
+// export default store
