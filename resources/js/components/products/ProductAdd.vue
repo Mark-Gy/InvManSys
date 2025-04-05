@@ -7,14 +7,23 @@
         <form role="form" action=" " method="POST">
             <div class="card-body">
                 <div class="form-group">
-                    <label>Category:</label>
-                    <!-- The line below causes error -->
+                    <label>Category:</label><br>
                     <select class="form-control" v-model="form.category_id">
                         <option v-for="category in categories" :value="category.id">
                             {{ category.name }}
                         </option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label>Brand:</label><br>
+                    <select class="form-control" v-model="form.brand_id">
+                        <option v-for="brand in brands" :value="brand.id">
+                            {{ brand.name }}
+                        </option>
+                    </select>
+                </div>
+
             </div>
             <!-- /.card-body -->
 
@@ -32,23 +41,27 @@
     import * as actions from '../../store/action-types'
     import { mapGetters } from 'vuex'
     import categories from '../../store/modules/categories'
+    import brands from '../../store/modules/brands'
 
     export default {
         data() {
             return {
                 form: {
-                    category_id: 0
+                    category_id: 0,
+                    brand_id: 0,
                 }
             }
         },
         computed: {
             ...mapGetters({
-                categories: 'categories/getCategories'
+                categories: 'categories/getCategories',
+                brands: 'brands/getBrands'
             })  
         },
         mounted() {
             console.log('Component mounted.')
             store.dispatch(`categories/${actions.GET_CATEGORIES}`)
+            store.dispatch(`brands/${actions.GET_BRANDS}`)
                 .then(() => {
                     console.log('Categories:', Array.from(this.categories));
             });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Brand;
+use Illuminate\Http\Response;
 
 
 class BrandsController extends Controller
@@ -41,7 +42,7 @@ class BrandsController extends Controller
         $brand->save();
 
         flash('Brand Created Succesfully!')->success();
-        return redirect()->route('brands.index');
+        return back();
     }
 
     /**
@@ -89,5 +90,15 @@ class BrandsController extends Controller
 
         flash('Brand Deleted Succesfully!')->success();
         return redirect()->route('brands.index'); 
+    }
+
+    public function getBrandsJson()
+    {
+        $brands = Brand::all();
+        
+        return response()->json([
+            'success' => true,
+            'data' => $brands
+        ], Response::HTTP_OK );
     }
 }
