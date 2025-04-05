@@ -1,15 +1,14 @@
 import { createApp } from 'vue';
 import ProductAdd from './components/products/ProductAdd.vue';
-import store from './store';  // Import Vuex store
+
+import store from './store';
 
 // Create Vue app instance
 const app = createApp({});
 
-// Use Vuex store
-app.use(store);
-
 // Register component
 app.component('product-add', ProductAdd);
+app.use(store);
 
 // Mount app
 app.mount('#app');

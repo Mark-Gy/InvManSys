@@ -23,7 +23,16 @@
 </template>
 
 <script>
-    export default {
-        
+import { mapActions } from 'vuex';
+
+export default {
+    mounted() {
+        this.getCategories();
+    },
+    methods: {
+        ...mapActions({
+            getCategories: 'GET_CATEGORIES' // Map Vuex action to local method
+        })
     }
+}
 </script>
