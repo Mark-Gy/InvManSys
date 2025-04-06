@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\SizesController;
 use App\Http\Controllers\ProductsController;
+use App\Models\Product;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,4 +32,6 @@ Route::middleware(['auth:sanctum'])->group(function() {
     Route::get('api/sizes', [SizesController::class, 'getSizesJson']);
 
     Route::resource('products', ProductsController::class);
+    Route::post('api/products', [ProductsController::class, 'store']);
 });
+

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+// use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class ProductsController extends Controller
 {
@@ -30,7 +32,29 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = Validator::make($request->all(), [
+            'category_id' => 'required|numeric',
+            'brand_id' => 'required|numeric',
+            'sku' => 'required|string|max:100|unique:products',//
+            'name' => 'required|string|min:2|max:200',//
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',//
+            'cost_price' => 'required|numeric',
+            'retail_price' => 'required|numeric',
+            'expiration_date' => 'required|date',//
+            'description' => 'required|string|max:200',//
+            'status' => 'required|numeric',
+
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validate->errors(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+
+        return $request->all();
     }
 
     /**

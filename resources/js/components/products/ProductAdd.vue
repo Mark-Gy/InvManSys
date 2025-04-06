@@ -1,6 +1,7 @@
 <template>
     <form role="form" @submit.prevent="submitForm" method="POST">
         <div class="row">
+            <show-error></show-error>
             <div class="col-sm-6">
                 <div class="card card-primary card-outline">
                     <div class="card-body">
@@ -38,7 +39,7 @@
 
                             <div class="form-group">
                                 <label>Image:<span class="text-danger">*</span></label>
-                                <input type="file" class="form-control" placeholder="Image">
+                                <input type="file" @change="selectImage" class="form-control" placeholder="Image">
                             </div>
 
                             <div class="form-group">
@@ -123,8 +124,14 @@
     import categories from '../../store/modules/categories'
     import brands from '../../store/modules/brands'
     import sizes from '../../store/modules/sizes'
+    import products from '../../store/modules/products'
+    import errors from '../../store/modules/utils/errors'
+    import ShowError from '../utils/ShowError.vue'
 
     export default {
+        components: {
+            ShowError
+        },
         data() {
             return {
                 form: {
@@ -150,7 +157,9 @@
             ...mapGetters({
                 categories: 'categories/getCategories',
                 brands: 'brands/getBrands',
-                sizes: 'sizes/getSizes'
+                sizes: 'sizes/getSizes',
+                errors: 'errors/getErrors',
+                isErrors: 'errors/isErrors'
             }),
             isValidDate() {
                 return /^\d{2}-\d{2}-\d{4}$/.test(this.form.expiration_date);
@@ -166,6 +175,9 @@
             });
         },
         methods: {
+            selectImage(e) {
+                this.form.image = e.target.files[0]
+            },
             addItem() {
                 let item = {
                     size_id: '',
@@ -178,8 +190,35 @@
                 this.form.items.splice(index, 1)
             },
             submitForm() {
-                console.log(this.form)
-            }
+                try {
+                    let data = new FormData();
+                    data.append('category_id', this.form.category_id);
+                    data.append('brand_id', this.form.brand_id);
+                    data.append('sku', this.form.sku);
+                    data.append('name', this.form.name);
+                    data.append('image', this.form.image);
+                    data.append('cost_price', this.form.cost_price);
+                    data.append('retail_price', this.form.retail_price);
+                    data.append('expiration_date', this.form.expiration_date);
+                    data.append('description', this.form.description);
+                    data.append('status', this.form.status);
+                    
+                    // The items need special handling as they are objects
+                    data.append('items', JSON.stringify(this.form.items));
+                    
+                    // This is the fix - use namespaced dispatch
+                    store.dispatch(`products/${actions.ADD_PRODUCT}`, data);
+                }
+                catch(err){
+                    console.log(err);
+                }
+            },
+            hasError(field) {
+                return this.isErrors && this.errors[field] !== undefined;
+            },
+            getError(field) {
+                return this.hasError(field) ? this.errors[field][0] : '';
+            },
         }
     }
 </script>
