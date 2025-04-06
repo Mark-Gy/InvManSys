@@ -90,7 +90,7 @@ class SizesController extends Controller
         return redirect()->route('sizes.index'); 
     }
 
-    public function getCategoriesJson()
+    public function getSizesJson()
     {
         $sizes = Size::all();
         

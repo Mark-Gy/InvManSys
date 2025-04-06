@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('image');
             $table->decimal('cost_price', 8, 2);
             $table->decimal('retail_price', 8, 2);
-            $table->string('year', 4);
+            $table->date('expiration_date')->nullable();
             $table->string('description');
             $table->boolean('status')->default(\App\Models\Product::STATUS_ACTIVE);
             $table->timestamps();

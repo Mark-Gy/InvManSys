@@ -1,39 +1,119 @@
 <template>
-    <div class="card card-primary card-outline">
-        <div class="card-body">
-        <h5 class="card-title">Create a Product</h5><br><br>
+    <form role="form" @submit.prevent="submitForm" method="POST">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card card-primary card-outline">
+                    <div class="card-body">
+                    <h5 class="card-title">Create a Product</h5><br><br>
 
-        <!-- form start -->
-        <form role="form" action=" " method="POST">
-            <div class="card-body">
-                <div class="form-group">
-                    <label>Category:</label><br>
-                    <select class="form-control" v-model="form.category_id">
-                        <option v-for="category in categories" :value="category.id">
-                            {{ category.name }}
-                        </option>
-                    </select>
+                    <!-- form start -->
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Category:<span class="text-danger">*</span></label><br>
+                                <select class="form-control" v-model="form.category_id">
+                                    <option v-for="category in categories" :value="category.id">
+                                        {{ category.name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Brand:<span class="text-danger">*</span></label><br>
+                                <select class="form-control" v-model="form.brand_id">
+                                    <option v-for="brand in brands" :value="brand.id">
+                                        {{ brand.name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>SKU:<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" v-model="form.sku" placeholder="SKU">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Name:<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" v-model="form.name" placeholder="Product Name">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Image:<span class="text-danger">*</span></label>
+                                <input type="file" class="form-control" placeholder="Image">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Cost Price:<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" v-model="form.cost_price" placeholder="Cost Price">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Retail Price:<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" v-model="form.retail_price" placeholder="Retail Price">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Expiration Date:<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" v-model="form.expiration_date" placeholder="MM-DD-YYYY">
+                                <small v-if="form.expiration_date && !isValidDate" class="text-danger">Invalid format. Use MM-DD-YYYY</small>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Description:<span class="text-danger">*</span></label>
+                                <textarea class="form-control" v-model="form.description" placeholder="Description (Max 200 characters)"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status:<span class="text-danger">*</span></label>
+                                <select class="form-control" v-model="form.status">
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i>Submit</button>
+                        </div>
+                    
+
+                    </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label>Brand:</label><br>
-                    <select class="form-control" v-model="form.brand_id">
-                        <option v-for="brand in brands" :value="brand.id">
-                            {{ brand.name }}
-                        </option>
-                    </select>
+            <div class="col-sm-6">
+                <div class="card card-primary card-outline">
+                    <div class="card-body">
+                        <h5 class="card-title">Product Size</h5><br><br>
+
+                        <div class="row mb-2" v-for="(item, index) in form.items" :key="index">   
+                            <div class="col-sm-4">
+                                <select class="form-control" v-model="item.size_id">
+                                    <option value="">Select Size</option>
+                                    <option v-for="(size, index) in sizes" :key="index" :value=" size.id ">
+                                        {{ size.name }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" v-model="item.location" class="form-control" placeholder="Location">
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="number" v-model="item.quantity" class="form-control" placeholder="Quantity">
+                            </div>
+                            <div class="col-sm-2">  
+                                <button type="button" @click="deleteItem(index)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>   </button>
+                            </div>
+                        </div>
+                        <br>
+                        <button type="button" @click="addItem" class="btn btn-primary btn-sm mt-2"><i class="fa fa-plus"></i> Add Item</button>
+                    </div>
                 </div>
-
             </div>
-            <!-- /.card-body -->
-
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i>Submit</button>
-            </div>
-        </form>
-
         </div>
-    </div><!-- /.card -->
+    </form>
 </template>
 
 <script>
@@ -42,6 +122,7 @@
     import { mapGetters } from 'vuex'
     import categories from '../../store/modules/categories'
     import brands from '../../store/modules/brands'
+    import sizes from '../../store/modules/sizes'
 
     export default {
         data() {
@@ -49,22 +130,56 @@
                 form: {
                     category_id: 0,
                     brand_id: 0,
+                    sku: '',
+                    name: '',
+                    image: '',
+                    cost_price: 0,
+                    retail_price: 0,
+                    expiration_date: '',
+                    description: '',
+                    status: 1,
+                    items: [{
+                        size_id: '',
+                        location: '',
+                        quantity: 0
+                    }]
                 }
             }
         },
         computed: {
             ...mapGetters({
                 categories: 'categories/getCategories',
-                brands: 'brands/getBrands'
-            })  
+                brands: 'brands/getBrands',
+                sizes: 'sizes/getSizes'
+            }),
+            isValidDate() {
+                return /^\d{2}-\d{2}-\d{4}$/.test(this.form.expiration_date);
+            }
         },
         mounted() {
             console.log('Component mounted.')
             store.dispatch(`categories/${actions.GET_CATEGORIES}`)
             store.dispatch(`brands/${actions.GET_BRANDS}`)
+            store.dispatch(`sizes/${actions.GET_SIZES}`)
                 .then(() => {
                     console.log('Categories:', Array.from(this.categories));
             });
+        },
+        methods: {
+            addItem() {
+                let item = {
+                    size_id: '',
+                    location: '',
+                    quantity: 0
+                }
+                this.form.items.push(item)
+            },
+            deleteItem(index) {
+                this.form.items.splice(index, 1)
+            },
+            submitForm() {
+                console.log(this.form)
+            }
         }
     }
 </script>
