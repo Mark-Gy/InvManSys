@@ -1,12 +1,8 @@
-// import * as types from '../../mutation-types'
+import * as types from '../../mutation-types';
 
-// export default {
-//   [types.ADD_PRODUCT](state, product) {
-//     state.products.push(product)
-//   },
-//   [types.ADD_PRODUCT](state, error) {
-//     state.error = error
-//   }
-// }
-
-export default {}
+export default {
+  [types.EDIT_PRODUCT_SUCCESS](state, payload) {
+    // Add the new product to your products array
+    state.products.push(payload);
+  }
+}

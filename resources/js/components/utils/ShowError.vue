@@ -3,7 +3,7 @@
         <div class="alert alert-danger" role="alert">
             <ul>
                 <li v-for="(error, index) in errors" :key="index">
-                    {{ error[0] }}
+                    {{ Array.isArray(error) ? error[0] : error }}
                 </li>
             </ul>
         </div>
@@ -18,7 +18,12 @@
             ...mapGetters('errors', {
                 errors: 'getErrors',
                 isErrors: 'getIsErrors'
-            })
+            }),
+        debugInfo() {
+            console.log('Current errors:', this.errors);
+            console.log('isErrors:', this.isErrors);
+            return '';
+        }
         }
     }
 

@@ -36,7 +36,11 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Image</th>
                             <th>Name</th>
+                            <th>SKU</th>
+                            <th>Category</th>
+                            <th>Brand</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -45,10 +49,17 @@
                             @foreach($products as $key => $product)
                             <tr>
                                 <td> {{ +$key + 1 }} </td>
-                                <td> {{ $product->name ?? '' }} </td>
                                 <td>
-                                  <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i>Edit</a>
-                                  <a href="javascript:;" class="btn btn-sm btn-danger sa-delete" data-form-id="product-delete-{{ $product->id }}"><i class="fa fa-trash"></i>Delete</a>
+                                  <image width="70px" height="70px" src="{{ asset('storage/product_images/'.$product->image) }}"></image>
+                                </td>
+                                <td> {{ $product->name ?? '' }} </td>
+                                <td> {{ $product->sku ?? '' }} </td>
+                                <td> {{ $product->category->name ?? '' }} </td>
+                                <td> {{ $product->brand->name ?? '' }} </td>
+                                <td>
+                                  <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-primary mr-1"><i class="fa fa-desktop"></i> Show</a>
+                                  <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-info mr-1"><i class="fa fa-edit"></i> Edit</a>
+                                  <a href="javascript:;" class="btn btn-sm btn-danger sa-delete" data-form-id="product-delete-{{ $product->id }}"><i class="fa fa-trash"></i> Delete</a>
                                   <form id="product-delete-{{ $product->id }}" action="{{ route('products.destroy', $product->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')

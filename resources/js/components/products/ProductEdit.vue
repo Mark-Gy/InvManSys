@@ -5,7 +5,7 @@
             <div class="col-sm-6">
                 <div class="card card-primary card-outline">
                     <div class="card-body">
-                    <h5 class="card-title">Create a Product</h5><br><br>
+                    <h5 class="card-title">Update Product</h5><br><br>
 
                     <!-- form start -->
                         <div class="card-body">
@@ -39,6 +39,7 @@
 
                             <div class="form-group">
                                 <label>Image:<span class="text-danger">*</span></label>
+                                <img :src="product.product_image" class="old_image">
                                 <input type="file" @change="selectImage" class="form-control" placeholder="Image">
                             </div>
 
@@ -131,6 +132,7 @@
         components: {
             ShowError
         },
+        props: ['product'],
         data() {
             return {
                 form: {
@@ -158,7 +160,7 @@
                 brands: 'brands/getBrands',
                 sizes: 'sizes/getSizes',
                 errors: 'errors/getErrors',
-                isErrors: 'errors/getIsErrors'
+                isErrors: 'errors/isErrors'
             }),
         },
         mounted() {
@@ -169,6 +171,19 @@
                 .then(() => {
                     console.log('Categories:', Array.from(this.categories));
             });
+
+            //Get Data
+            this.form.category_id = this.product.category_id;
+            this.form.brand_id = this.product.brand_id;
+            this.form.name = this.product.name;
+            this.form.sku = this.product.sku;
+            this.form.cost_price = this.product.cost_price;
+            this.form.retail_price = this.product.retail_price;
+            this.form.expiration_date = this.product.expiration_date;
+            this.form.description = this.product.description;
+            this.form.status = this.product.status;
+            this.form.items = this.product.product_stocks;
+
         },
         methods: {
             selectImage(e) {
@@ -189,6 +204,7 @@
                 try {
                     
                     let data = new FormData();
+                    data.append('_method', 'PUT')
                     data.append('category_id', this.form.category_id);
                     data.append('brand_id', this.form.brand_id);
                     data.append('sku', this.form.sku);
@@ -196,12 +212,17 @@
                     data.append('image', this.form.image);
                     data.append('cost_price', this.form.cost_price);
                     data.append('retail_price', this.form.retail_price);
-                    data.append('expiration_date', this.form.expiration_date); // now fixed format
+                    data.append('expiration_date', this.form.expiration_date);
                     data.append('description', this.form.description);
                     data.append('status', this.form.status);
                     data.append('items', JSON.stringify(this.form.items));
 
-                    store.dispatch(`products/${actions.ADD_PRODUCT}`, data);
+                    let payload = {
+                        data: data,
+                        id: this.product.id,
+                    }
+
+                    store.dispatch(`products/${actions.EDIT_PRODUCT}`, payload);
                     // store.dispatch('products/ADD_PRODUCT', data);
                 }
                 catch(err){
@@ -218,3 +239,8 @@
     }
 </script>
 
+<style scooped>
+    .old_image {
+        width: 100px;
+    }
+</style>

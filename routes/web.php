@@ -24,14 +24,18 @@ Route::middleware([
 Route::middleware(['auth:sanctum'])->group(function() {
     Route::resource('categories', CategoriesController::class);
     Route::get('api/categories', [CategoriesController::class, 'getCategoriesJson']);
-
+    
     Route::resource('brands', BrandsController::class);
     Route::get('api/brands', [BrandsController::class, 'getBrandsJson']);
-
+    
     Route::resource('sizes', SizesController::class);
     Route::get('api/sizes', [SizesController::class, 'getSizesJson']);
-
+    
     Route::resource('products', ProductsController::class);
     Route::post('api/products', [ProductsController::class, 'store']);
+    
+    // Add this route for updating products
+    Route::put('api/products/{id}', [ProductsController::class, 'update']);
+    // OR use PUT method if your backend expects it
+    // Route::put('api/products/{id}', [ProductsController::class, 'update']);
 });
-
