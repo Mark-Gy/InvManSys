@@ -160,7 +160,7 @@
                 brands: 'brands/getBrands',
                 sizes: 'sizes/getSizes',
                 errors: 'errors/getErrors',
-                isErrors: 'errors/isErrors'
+                isErrors: 'errors/getIsErrors'
             }),
         },
         mounted() {
