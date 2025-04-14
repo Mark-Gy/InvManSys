@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\SizesController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\StocksController;
 use App\Models\Product;
 
 Route::get('/', function () {
@@ -33,9 +34,12 @@ Route::middleware(['auth:sanctum'])->group(function() {
     
     Route::resource('products', ProductsController::class);
     Route::post('api/products', [ProductsController::class, 'store']);
-    
-    // Add this route for updating products
     Route::put('api/products/{id}', [ProductsController::class, 'update']);
-    // OR use PUT method if your backend expects it
-    // Route::put('api/products/{id}', [ProductsController::class, 'update']);
+    Route::get('api/products', [ProductsController::class, 'getProductsJson']);
+    
+    Route::get('/stocks', [StocksController::class, 'stock'])->name('stock');
+    Route::post('/stocks', [StocksController::class, 'stockSubmit'])->name('stockSubmit');
+    Route::get('/stocks/history', [StocksController::class, 'history'])->name('stockHistory');
+
+
 });

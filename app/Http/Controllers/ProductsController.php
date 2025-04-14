@@ -197,4 +197,15 @@ class ProductsController extends Controller
         flash('Product Deleted Succesfully!')->success();
         return back();
     }
+
+        //AJAX Handlers
+        public function getProductsJson()
+        {
+            $products = Product::with(['product_stocks.size'])->orderby('created_at', 'DESC')->get();
+            
+            return response()->json([
+                'success' => true,
+                'data' => $products
+            ], Response::HTTP_OK );
+        }
 }

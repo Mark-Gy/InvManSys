@@ -50,5 +50,17 @@ export default {
                 }
                 throw error;
             });
-    }
+    },
+    [actions.GET_PRODUCTS]({ commit }) {
+            axios.get('/api/products')
+                .then(res => {
+                    if (res.data.success === true) {
+                        commit(types.SET_PRODUCTS, res.data.data);
+                    }
+                })
+                .catch(err => {
+                    console.error(err.response);
+                });
+        }
+    
 }

@@ -13,3 +13,7 @@ export const SET_ERRORS = 'SET_ERRORS';
 // Products
 export const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS';
 export const EDIT_PRODUCT_SUCCESS = 'EDIT_PRODUCT_SUCCESS';
+export const SET_PRODUCTS = 'SET_PRODUCTS';
+
+// Stocks
+export const ADD_STOCK_SUCCESS = 'ADD_STOCK_SUCCESS';
