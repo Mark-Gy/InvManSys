@@ -8,25 +8,18 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ReturnProductsController;
 use App\Http\Controllers\StocksController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\DashboardController;
 use App\Models\Product;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
-
 Route::get('/user/logout', [UsersController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth:sanctum'])->group(function() {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::resource('users', UsersController::class);
 
     Route::resource('categories', CategoriesController::class);
