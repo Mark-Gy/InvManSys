@@ -17,3 +17,6 @@ export const SET_PRODUCTS = 'SET_PRODUCTS';
 
 // Stocks
 export const ADD_STOCK_SUCCESS = 'ADD_STOCK_SUCCESS';
+
+// Stocks
+export const RETURN_PRODUCT_SUCCESS = 'RETURN_PRODUCT_SUCCESS';

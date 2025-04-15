@@ -22,3 +22,7 @@ export const GET_PRODUCTS = 'GET_PRODUCTS';
 //Stocks
 
 export const SUBMIT_STOCK = 'SUBMIT_STOCK';
+
+//Return Product
+
+export const SUBMIT_RETURN_PRODUCT = 'SUBMIT_RETURN_PRODUCT';

@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Stock History</h1>
+            <h1 class="m-0 text-dark">Return Product History</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href=" {{ route('dashboard') }}">Home</a></li>
-              <li class="breadcrumb-item active">Stock History Lists</li>
+              <li class="breadcrumb-item active">Return Product History Lists</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -28,7 +28,7 @@
 
             <div class="card card-primary card-outline">
               <div class="card-body">
-                <h5 class="card-title">Stock History</h5><br><br>
+                <h5 class="card-title">Return Product History</h5><br><br>
                 
                 <table class="table table-bordered datatable">
                     <thead>
@@ -38,19 +38,17 @@
                             <th>Product</th>
                             <th>Size</th>
                             <th>Quantity</th>
-                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if($stocks)
-                            @foreach($stocks as $key => $stock)
+                        @if($return_products)
+                            @foreach($return_products as $key => $return_product)
                             <tr>
                                 <td> {{ +$key + 1 }} </td>
-                                <td> {{ $stock->date ?? '' }} </td>
-                                <td> {{ $stock->product->name ?? '' }} </td>
-                                <td> {{ $stock->size->name ?? '' }} </td>
-                                <td> {{ $stock->quantity ?? '' }} </td>
-                                <td> {{ strtoupper($stock->status) ?? '' }} </td>
+                                <td> {{ $return_product->date ?? '' }} </td>
+                                <td> {{ $return_product->product->name ?? '' }} </td>
+                                <td> {{ $return_product->size->name ?? '' }} </td>
+                                <td> {{ $return_product->quantity ?? '' }} </td>
                             </tr>
                             @endforeach
                         @endif
