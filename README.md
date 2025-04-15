@@ -67,4 +67,6 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Note
 
-This is a school project where we are tasked to create a systemm that uses Laravel as it's framework. This is a tutorial by CodeVsBug which is improved. 
+This is a school project where we are tasked to create a systemm that uses Laravel as it's framework. It is hard to create a full working system with having little to no knowledge in this framework. 
+
+This is a tutorial by CodeVsBug which is improved. 
