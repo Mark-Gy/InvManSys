@@ -7,6 +7,7 @@ use App\Http\Controllers\SizesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ReturnProductsController;
 use App\Http\Controllers\StocksController;
+use App\Http\Controllers\UsersController;
 use App\Models\Product;
 
 Route::get('/', function () {
@@ -23,7 +24,11 @@ Route::middleware([
     })->name('dashboard');
 });
 
+Route::get('/user/logout', [UsersController::class, 'logout'])->name('logout');
+
 Route::middleware(['auth:sanctum'])->group(function() {
+    Route::resource('users', UsersController::class);
+
     Route::resource('categories', CategoriesController::class);
     Route::get('api/categories', [CategoriesController::class, 'getCategoriesJson']);
     
