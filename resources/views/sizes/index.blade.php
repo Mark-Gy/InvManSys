@@ -1,5 +1,3 @@
-
-
 @extends('layouts.master')
 @section('content')
     <!-- Content Header (Page header) -->
@@ -28,14 +26,17 @@
 
             <div class="card card-primary card-outline">
               <div class="card-body">
-                <h5 class="card-title">Sizes List</h5><br><br>
-
-                <a href=" {{ route('sizes.create') }} " class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New Size</a><br><br>
-
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="card-title m-0">Sizes List</h5>
+                  <a href="{{ route('sizes.create') }}" class="btn btn-sm btn-primary">
+                    <i class="fa fa-plus"></i> Add New Size
+                  </a>
+                </div>
+                
                 <table class="table table-bordered datatable">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#SL</th>
                             <th>Name</th>
                             <th>Action</th>
                         </tr>
@@ -47,8 +48,8 @@
                                 <td> {{ +$key + 1 }} </td>
                                 <td> {{ $size->name ?? '' }} </td>
                                 <td>
-                                  <a href="{{ route('sizes.edit', $size->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i>Edit</a>
-                                  <a href="javascript:;" class="btn btn-sm btn-danger sa-delete" data-form-id="size-delete-{{ $size->id }}"><i class="fa fa-trash"></i>Delete</a>
+                                  <a href="{{ route('sizes.edit', $size->id) }}" class="btn btn-sm btn-info mr-1"><i class="fa fa-edit"></i> Edit</a>
+                                  <a href="javascript:;" class="btn btn-sm btn-danger sa-delete" data-form-id="size-delete-{{ $size->id }}"><i class="fa fa-trash"></i> Delete</a>
                                   <form id="size-delete-{{ $size->id }}" action="{{ route('sizes.destroy', $size->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')

@@ -9,11 +9,15 @@ use App\Http\Controllers\ReturnProductsController;
 use App\Http\Controllers\StocksController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SoldItemsController;
+use App\Http\Controllers\Auth\CustomRegisteredUserController;
 use App\Models\Product;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
+
+Route::post('/register', [CustomRegisteredUserController::class, 'store'])->name('register');
 
 Route::get('/user/logout', [UsersController::class, 'logout'])->name('logout');
 
@@ -44,5 +48,8 @@ Route::middleware(['auth:sanctum'])->group(function() {
     Route::post('/return-products', [ReturnProductsController::class, 'returnProductSubmit'])->name('returnProductSubmit');
     Route::get('/return-products/history', [ReturnProductsController::class, 'history'])->name('returnProductHistory');
 
+    Route::get('/sold-items', [SoldItemsController::class, 'create'])->name('sold');
+    Route::post('/sold-items', [SoldItemsController::class, 'store'])->name('sold-items.store');
+    Route::get('/sold-items/history', [SoldItemsController::class, 'index'])->name('sold-items.history');
 
 });

@@ -20,3 +20,7 @@ export const ADD_STOCK_SUCCESS = 'ADD_STOCK_SUCCESS';
 
 // Stocks
 export const RETURN_PRODUCT_SUCCESS = 'RETURN_PRODUCT_SUCCESS';
+
+// Sold Items
+export const ADD_SOLD_ITEM = 'ADD_SOLD_ITEM';
+

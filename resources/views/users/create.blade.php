@@ -21,12 +21,12 @@
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-        <div class="row">
+        <div class="row"> 
           <div class="col-lg-6">
 
             <div class="card card-primary card-outline">
               <div class="card-body">
-                <h5 class="card-title">Create a User</h5><br><br>
+                <h5 class="card-title">Create a User</h5><br>
 
                 <!-- form start -->
                 <form role="form" action=" {{ route('users.store') }} " method="POST">
@@ -60,7 +60,7 @@
                     </div>
                     <!-- /.card-body -->
 
-                    <div class="card-footer">
+                    <div class="card-footer text-center">  <!-- Added text-center here -->
                       <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Submit</button>
                     </div>
                 </form>

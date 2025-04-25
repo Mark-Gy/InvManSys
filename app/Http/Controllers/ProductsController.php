@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductSizeStock;
-// use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -39,13 +38,13 @@ class ProductsController extends Controller
         $validate = Validator::make($request->all(), [
             'category_id' => 'required|numeric',
             'brand_id' => 'required|numeric',
-            'sku' => 'required|string|max:100|unique:products',//
-            'name' => 'required|string|min:2|max:200',//
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',//
+            'sku' => 'required|string|max:100|unique:products',
+            'name' => 'required|string|min:2|max:200',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'cost_price' => 'required|numeric',
             'retail_price' => 'required|numeric',
-            'expiration_date' => 'required|date',//
-            'description' => 'required|string|max:200',//
+            'expiration_date' => 'required|date',
+            'description' => 'required|string|max:200',
             'status' => 'required|numeric',
 
         ]);
@@ -69,7 +68,6 @@ class ProductsController extends Controller
         $product->description = $request->description;
         $product->status = $request->status;
 
-        //Image
         if ($request->hasFile('image')) {
             $image = $request->image;
             $name = Str::random(60).'.' . $image->getClientOriginalExtension();
@@ -78,7 +76,6 @@ class ProductsController extends Controller
         }
         $product->save();
 
-        //Product Size
         if ($request->items) {
             foreach (json_decode($request->items) as $item) {
                 $size_stock = new ProductSizeStock();
@@ -157,7 +154,6 @@ class ProductsController extends Controller
         $product->description = $request->description;
         $product->status = $request->status;
     
-        //Image
         if ($request->hasFile('image')) {
             $image = $request->image;
             $name = Str::random(60).'.' . $image->getClientOriginalExtension();
@@ -168,7 +164,6 @@ class ProductsController extends Controller
     
         ProductSizeStock::where('product_id', $id)->delete();
     
-        //Product Size
         if ($request->items) {
             foreach (json_decode($request->items) as $item) {
                 $size_stock = new ProductSizeStock();
@@ -183,7 +178,7 @@ class ProductsController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Product updated successfully',
-            'redirect' => route('products.index') // Add this if you want to redirect
+            'redirect' => route('products.index')
         ], Response::HTTP_OK);
     }
 
@@ -198,7 +193,6 @@ class ProductsController extends Controller
         return back();
     }
 
-        //AJAX Handlers
         public function getProductsJson()
         {
             $products = Product::with(['product_stocks.size'])->orderby('created_at', 'DESC')->get();

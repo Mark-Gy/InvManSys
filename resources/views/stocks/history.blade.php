@@ -47,8 +47,8 @@
                             <tr>
                                 <td> {{ +$key + 1 }} </td>
                                 <td> {{ $stock->date ?? '' }} </td>
-                                <td> {{ $stock->product->name ?? '' }} </td>
-                                <td> {{ $stock->size->name ?? '' }} </td>
+                                <td> {{ $stock->product->name ?? 'N/A' }} </td>
+                                <td> {{ $stock->size->name ?? 'N/A' }} </td>
                                 <td> {{ $stock->quantity ?? '' }} </td>
                                 <td> {{ strtoupper($stock->status) ?? '' }} </td>
                             </tr>

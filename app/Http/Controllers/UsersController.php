@@ -39,7 +39,15 @@ class UsersController extends Controller
         $this->validate($request, [
             'name' => 'required|min:2|max:50',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:8|max:50|confirmed'
+            'password' => [
+                'required',
+                'min:8',
+                'max:50',
+                'confirmed',
+                'regex:/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/'
+            ]
+        ], [
+            'password.regex' => 'The password must contain at least one number and one special character.'
         ]);
 
         $user = new User();
@@ -85,11 +93,18 @@ class UsersController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-
         $this->validate($request, [
             'name' => 'required|min:2|max:50',
             'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'nullable|min:8|max:50|confirmed'
+            'password' => [
+                'nullable',
+                'min:8',
+                'max:50',
+                'confirmed',
+                'regex:/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/'
+            ]
+        ], [
+            'password.regex' => 'The password must contain at least one number and one special character.'
         ]);
 
         $user->name = $request->name;

@@ -15,4 +15,10 @@
 <link rel="stylesheet" href=" {{ asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }} ">
 <link rel="stylesheet" href=" {{ asset('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }} ">
 
-  @stack('css')
+<style>
+  .select-container--default{
+    height: 38px !important;
+  }
+</style>
+
+@stack('css')

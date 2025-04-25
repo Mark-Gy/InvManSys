@@ -26,3 +26,6 @@ export const SUBMIT_STOCK = 'SUBMIT_STOCK';
 //Return Product
 
 export const SUBMIT_RETURN_PRODUCT = 'SUBMIT_RETURN_PRODUCT';
+
+//Sold Items
+export const RECORD_SOLD_ITEMS = 'RECORD_SOLD_ITEMS';

@@ -46,8 +46,8 @@
                             <tr>
                                 <td> {{ +$key + 1 }} </td>
                                 <td> {{ $return_product->date ?? '' }} </td>
-                                <td> {{ $return_product->product->name ?? '' }} </td>
-                                <td> {{ $return_product->size->name ?? '' }} </td>
+                                <td> {{ $return_product->product->name ?? 'N/A' }} </td>
+                                <td> {{ $return_product->size->name ?? 'N/A' }} </td>
                                 <td> {{ $return_product->quantity ?? '' }} </td>
                             </tr>
                             @endforeach

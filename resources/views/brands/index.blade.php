@@ -1,5 +1,3 @@
-
-
 @extends('layouts.master')
 @section('content')
     <!-- Content Header (Page header) -->
@@ -28,14 +26,17 @@
 
             <div class="card card-primary card-outline">
               <div class="card-body">
-                <h5 class="card-title">Brands List</h5><br><br>
-
-                <a href=" {{ route('brands.create') }} " class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New Brand</a><br><br>
-
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="card-title m-0">Brands List</h5>
+                  <a href="{{ route('brands.create') }}" class="btn btn-sm btn-primary">
+                    <i class="fa fa-plus"></i> Add New Brand
+                  </a>
+                </div>
+                
                 <table class="table table-bordered datatable">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#SL</th>
                             <th>Name</th>
                             <th>Action</th>
                         </tr>
@@ -47,8 +48,8 @@
                                 <td> {{ +$key + 1 }} </td>
                                 <td> {{ $brand->name ?? '' }} </td>
                                 <td>
-                                  <a href="{{ route('brands.edit', $brand->id) }}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i>Edit</a>
-                                  <a href="javascript:;" class="btn btn-sm btn-danger sa-delete" data-form-id="brand-delete-{{ $brand->id }}"><i class="fa fa-trash"></i>Delete</a>
+                                  <a href="{{ route('brands.edit', $brand->id) }}" class="btn btn-sm btn-info mr-1"><i class="fa fa-edit"></i> Edit</a>
+                                  <a href="javascript:;" class="btn btn-sm btn-danger sa-delete" data-form-id="brand-delete-{{ $brand->id }}"><i class="fa fa-trash"></i> Delete</a>
                                   <form id="brand-delete-{{ $brand->id }}" action="{{ route('brands.destroy', $brand->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')

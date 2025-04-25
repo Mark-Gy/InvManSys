@@ -18,9 +18,7 @@ export default {
                 if (error.response && error.response.data) {
                     console.error('Server response:', error.response.data);
                     if (error.response.data.errors) {
-                        console.log('Commit key:', types.SET_ERRORS);
                         console.log('Committing errors:', error.response.data.errors);
-                        commit('errors/' + types.SET_ERRORS, error.response.data.errors, { root: true });
                     }
                 }
                 throw error;

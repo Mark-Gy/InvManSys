@@ -1,5 +1,3 @@
-
-
 @extends('layouts.master')
 @section('content')
     <!-- Content Header (Page header) -->
@@ -28,14 +26,14 @@
 
             <div class="card card-primary card-outline">
               <div class="card-body">
-                <h5 class="card-title">Users List</h5><br><br>
-
-                @if(Auth::user()->role === 'admin')
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="card-title m-0">Users List</h5>
+                  @if(Auth::user()->role === 'admin')
                     <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary">
                         <i class="fa fa-plus"></i> Add New User
-                    </a><br><br>
-                @endif
-
+                    </a>
+                  @endif
+                </div>
                 
                 <table class="table table-bordered datatable">
                     <thead>
@@ -57,7 +55,7 @@
                                 <td> {{ $user->created_at->format('m-d-Y') ?? '' }} </td>
                                 <td>
                                     @if(auth()->user()->role === 'admin' || auth()->id() === $user->id)
-                                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning mr-1">Edit</a>
+                                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary mr-1"><i class="fa fa-edit"></i> Edit</a>
                                     @endif
 
                                     @if(auth()->id() != $user->id && auth()->user()->role === 'admin')
@@ -67,17 +65,6 @@
                                     @method('DELETE')
                                     </form>
                                     @endif
-
-                                    <!-- @if (Auth::user()->role === 'admin')
-                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
-                                                <i class="fa fa-trash"></i> Delete
-                                            </button>
-                                        </form>
-                                    @endif -->
-
                                 </td>
                             </tr>
                             @endforeach

@@ -44,7 +44,7 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Submit</button>
+                        <button type="submit" class="btn btn-primary btn-sm text-right"><i class="fa fa-save"></i> Submit</button>
                     </div>
                 </form>
 

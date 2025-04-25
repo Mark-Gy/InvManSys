@@ -74,8 +74,8 @@
                         </div>
                         <!-- /.card-body -->
 
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i>Submit</button>
+                        <div class="card-footer text-right">
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Submit</button>
                         </div>
                     
 
@@ -108,7 +108,9 @@
                             </div>
                         </div>
                         <br>
-                        <button type="button" @click="addItem" class="btn btn-primary btn-sm mt-2"><i class="fa fa-plus"></i> Add Item</button>
+                        <div class="text-right">
+                            <button type="button" @click="addItem" class="btn btn-primary btn-sm mt-2 text-right"><i class="fa fa-plus"></i> Add Item</button>
+                        </div>
                     </div>
                 </div>
             </div>

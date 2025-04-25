@@ -35,4 +35,9 @@ class Product extends Model
     public function product_stocks(){
         return $this->hasMany(ProductSizeStock::class);
     }
+
+    public function soldItems()
+    {
+        return $this->hasMany(SoldItem::class);
+    }
 }

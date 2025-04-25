@@ -6,6 +6,8 @@ use App\Actions\Jetstream\DeleteUser;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
+use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Contracts\RegisterResponse;
 
 class JetstreamServiceProvider extends ServiceProvider
 {
@@ -14,7 +16,12 @@ class JetstreamServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->instance(RegisterResponse::class, new class implements RegisterResponse {
+            public function toResponse($request)
+            {
+                return redirect()->route('login')->with('status', 'account-created');
+            }
+        });
     }
 
     /**

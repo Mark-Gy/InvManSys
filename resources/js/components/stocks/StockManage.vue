@@ -34,8 +34,8 @@
                         </div>
                         <!-- /.card-body -->
 
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i>Submit</button>
+                        <div class="card-footer text-right">
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Submit</button>
                         </div>
                     
 
@@ -121,16 +121,6 @@
                 })
             },
             submitForm() {
-                // if (!this.form.product_id || !this.form.date || !this.form.stock_type) {
-                //     alert("Please fill out Product, Date, and Stock Type fields.");
-                //     return;
-                // }
-
-                // const invalidItem = this.form.items.find(item => !item.quantity || isNaN(item.quantity) || Number(item.quantity) <= 0);
-                // if (invalidItem) {
-                //     alert("Please enter a valid quantity for all product sizes.");
-                //     return;
-                // }
                 store.dispatch(`stocks/${actions.SUBMIT_STOCK}`, this.form);
             }
         },
