@@ -102,21 +102,33 @@ export default {
           });
   },
   methods: {
-      selectedProduct() {
-          this.form.items = [];
-          const product = this.products.find(p => p.id == this.form.product_id);
-          
-          if (product && product.product_stocks) {
-              product.product_stocks.forEach(stock => {
-                  this.form.items.push({
-                      size: stock.size.name,
-                      size_id: stock.size_id,
-                      stock: stock.quantity,
-                      quantity: null
-                  });
-              });
-          }
-      },
+    selectedProduct() {
+    this.form.items = [];
+    const product = this.products.find(p => p.id == this.form.product_id);
+
+    if (product && product.product_stocks) {
+        const sizeMap = {};
+
+        product.product_stocks.forEach(stock => {
+            const sizeName = stock.size.name.trim();
+
+            if (!sizeMap[sizeName]) {
+                sizeMap[sizeName] = {
+                    size: sizeName,
+                    size_id: stock.size_id,
+                    stock: stock.quantity,
+                    quantity: null
+                };
+            } else {
+                sizeMap[sizeName].stock += stock.quantity;
+            }
+        });
+
+        this.form.items = Object.values(sizeMap);
+        this.form.items.sort((a, b) => a.size.localeCompare(b.size));
+    }
+}
+,
       validateQuantity(item) {
           if (item.quantity > item.stock) {
               Swal.fire({

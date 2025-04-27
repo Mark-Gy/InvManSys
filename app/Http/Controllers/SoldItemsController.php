@@ -16,7 +16,6 @@ class SoldItemsController extends Controller
     
         return view('sold_items.history', compact('soldItems'));
     }
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -28,24 +27,17 @@ class SoldItemsController extends Controller
         ]);
     
         foreach ($validated['items'] as $item) {
-            $psq = ProductSizeStock::where('product_id', $validated['product_id'])
-                ->where('size_id', $item['size_id'])
-                ->first();
-    
-            if ($psq) {
-                $psq->save();
-            }
-    
             SoldItem::create([
                 'product_id' => $validated['product_id'],
                 'size_id' => $item['size_id'],
                 'quantity' => $item['quantity'],
-                'sold_at' => $validated['date']->default(now()),
+                'sold_at' => $validated['date'] ?? now(),
             ]);
         }
     
-        return response()->json(['message' => 'Sold items recorded successfully'])->redirect ('/sold');
+        return response()->json(['message' => 'Sold items recorded successfully']);
     }
+    
     public function create()
     {
         return view('sold_items.sold');
