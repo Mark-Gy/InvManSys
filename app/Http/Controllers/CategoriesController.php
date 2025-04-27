@@ -13,7 +13,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderby('created_at', 'DESC')->get();
+        $categories = Category::orderby('created_at', 'ASC')->get();
         return view('categories.index', compact('categories'));
     }
 

@@ -14,7 +14,7 @@ class BrandsController extends Controller
      */
     public function index()
     {
-        $brands = Brand::orderby('created_at', 'DESC')->get();
+        $brands = Brand::orderby('created_at', 'ASC')->get();
         return view('brands.index', compact('brands'));
 
     }

@@ -11,7 +11,7 @@ class SoldItemsController extends Controller
     public function index()
     {
         $soldItems = SoldItem::with(['product', 'size'])
-            ->orderBy('sold_at', 'desc')
+            ->orderBy('sold_at', 'asc')
             ->get();
     
         return view('sold_items.history', compact('soldItems'));
@@ -33,7 +33,6 @@ class SoldItemsController extends Controller
                 ->first();
     
             if ($psq) {
-                $psq->quantity -= $item['quantity'];
                 $psq->save();
             }
     

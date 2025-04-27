@@ -14,7 +14,7 @@ class SizesController extends Controller
      */
     public function index()
     {
-        $sizes = Size::orderby('created_at', 'DESC')->get();
+        $sizes = Size::orderby('created_at', 'ASC')->get();
         return view('sizes.index', compact('sizes'));
     }
 
